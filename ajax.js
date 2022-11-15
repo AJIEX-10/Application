@@ -18,9 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
             form.addEventListener("submit", function (e) {
                 e.preventDefault();
                 const formData = new FormData(this);
-
-                debugger;
-
+                
                 ajaxSend(formData)
                     .then((response) => {
                         console.log(response);
