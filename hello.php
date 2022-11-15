@@ -1,30 +1,21 @@
 <?php
-	session_start();
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-<body>
-    <noscript><p>Please enable javascript</p></noscript>
+    session_start();
     
-    <p>
-        <?php
-            error_reporting(E_ERROR | E_PARSE);
-            if (!isset($SESSION["mess"])) {
-                header("Location: authorization.php");
-            }
-            print_r($SESSION["mess"]);
-            setcookie("user", $SESSION["mess"], time() + 900);
-        ?>
-    </p>
-
-    <a href="index0.php">Exit</a>
-</body>
-</html>
+    $pass=$_POST["apassword"];
+    $_POST["apassword"]=sha1($pass)."AbEn3XX900m";
+    $filename = "file.json";
+    
+    $content=file_get_contents('./secret_data/'.$filename);
+    $returnee=json_decode($content, true);
+    foreach($returnee as $ret) {
+        if(trim($ret["login"]) == trim($_POST["alogin"]) && trim($ret["password"]) == trim($_POST["apassword"]))
+        {
+            $_SESSION["mess"] = "Hello ".$ret["usernames"]."<br>";
+            header("Location: hello_user.php");  
+        } else {
+            unset($_SESSION["mess"]);
+            setcookie("error", "incorrectly name or password", time() + 5);
+            header("Location: authorization.php");
+        }
+    }  
+?>

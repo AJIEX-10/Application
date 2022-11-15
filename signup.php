@@ -1,9 +1,6 @@
 <?php
-	session_start();
-	error_reporting(E_ERROR | E_PARSE);
 	$password = $_POST["password"];
 	$_POST["password"] = sha1($password)."AbEn3XX900m";
-
 	$conf_password = $_POST["conpassword"];
 	$_POST["conpassword"] = sha1($conf_password)."AbEn3XX900m";
 
@@ -54,8 +51,7 @@
 			{
 				if(trim($ret["login"]) == trim($this->post["login"]) && trim($ret["email"]) == trim($this->post["email"]))
 				{
-					$_SESSION["message"] = "This user already exists";
-					header("Location: authorization.php");
+					echo "This user already exists";
 				} else {
 					return $this->writing_to_file();
 				}	
@@ -73,14 +69,6 @@
 		}
 	}
 	
-	if ($_POST["password"] == $_POST["conpassword"]) {
-		$obj = new Writing_to_file($_POST);
-		$obj->final_record();
-		$_SESSION["okey"] = "Registration was successful !";
-		header("Location: authorization.php");
-	} else {
-		$_SESSION["message"] = "Parole don't Match";
-		header("Location: index0.php");
-	}
-	
+	$obj = new Writing_to_file($_POST);
+	$obj->final_record();
 ?>

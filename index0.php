@@ -1,22 +1,21 @@
 <?php
 	session_start();
-	if (isset($SESSION["mess"])) {
-		print_r($SESSION["mess"]);
+	if (isset($_SESSION["mess"])) {
+		print_r($_SESSION["mess"]);
 	}
 ?>
 
 <!DOCTYPE html>
 <html>
-
+	
 <head>
 	<!-- CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/
 	4.0.0/css/bootstrap.min.css">
 	<link rel="stylesheet" href="file.css">
 	<!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery
-	/3.0.0/jquery.min.js">
-	</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/
+	jquery.min.js"></script>
 	<!-- Popper JS -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/
 	popper.js/1.12.9/umd/popper.min.js">
@@ -40,12 +39,12 @@
 	<div id="mydiv" class="container">
 		<div class="col-lg-8
 		m-auto d-block">
-			<form action="authorization.php" id="ajax_form" method="post" >
+			<form action="" id="ajax_form" method="post">
 				<div class="form-group">
 					<label for="user">
 						Username:
 					</label>
-					<input type="text" name="usernames" id="usernames" required class="form-control" pattern="^\s*([a-zA-Z]{2,3}|\s{2,3}|[a-zA-Z]\s[a-zA-Z])\s*$">
+					<input type="text" name="usernames" id="usernames" required class="form-control" pattern="^\s*([a-zA-Z]{2}|[a-zA-Z]\s[a-zA-Z])\s*$">
 					<h5 id="usercheck" style="color: red;">
 						**Enter your name
 					</h5>
@@ -55,7 +54,7 @@
 					<label for="login">
 						Login:
 					</label>
-					<input type="text" name="login" id="login" required class="form-control" pattern="^[.]{6,}$">
+					<input type="text" name="login" id="login" required class="form-control" pattern=".{6,}">
 					<h5 id="logcheck" style="color: red;">
 						**Please enter your login
 					</h5>
@@ -76,7 +75,7 @@
 					<label for="password">
 						Password:
 					</label>
-					<input type="password" name="password" id="password" required class="form-control" pattern="^(?=.*[0-9].*[0-9])(?=.*[A-Za-z].*[A-Za-z]).{6,}$">
+					<input type="password" name="password" id="password" required class="form-control" pattern="^(?=.*[A-Za-z].*[A-Za-z])(?=.*[0-9]).{6,}$">
 					<h5 id="passcheck" style="color: red;">
 						**Append password
 					</h5>
@@ -99,13 +98,11 @@
 		</div>
 	</div>
 
-	<div id="result_form"></div>
-
 	<p>
 		<?php
 			error_reporting(E_ERROR | E_PARSE); 
-			print_r($SESSION["message"]);
-			unset($SESSION["message"]);
+			print_r($_SESSION["message"]);
+			unset($_SESSION["message"]);
 		?>
 	</p>
 

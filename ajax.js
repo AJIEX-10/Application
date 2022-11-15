@@ -1,24 +1,34 @@
-$( document ).ready(function() {
-    $("#submitbtn").click(
-		function willsend(){
-			sendAjaxForm("result_form", "mydiv", "signup.php");
-			return false; 
-		}
-	);
+document.addEventListener("DOMContentLoaded", () => {
+
+    const ajaxSend = async (formData) => {
+        const response = await fetch("signup.php", {
+            method: "POST",
+            body: formData
+        });
+        if (!response.ok) {
+            throw new Error(`Ошибка по адресу ${url}, статус ошибки ${response.status}`);
+        }
+        return await response.text();
+    };
+
+    if (document.getElementsByTagName("form")) {
+        const forms = document.getElementsByTagName("form");
+
+        [].forEach.call(forms, form => {
+            form.addEventListener("submit", function (e) {
+                e.preventDefault();
+                const formData = new FormData(this);
+
+                debugger;
+
+                ajaxSend(formData)
+                    .then((response) => {
+                        console.log(response);
+                        form.reset();
+                    })
+                    .catch((err) => console.error(err))
+            });
+        });
+    }
+
 });
- 
-function sendAjaxForm(result_form, ajax_form, url) {
-    $.ajax({
-        url:    "signup.php",
-        type:     "POST",
-        dataType: "html",
-        data: $("#"+ajax_form).serialize(),
-        success: function(response) {
-        	result = $.parseJSON(response);
-        	$('#result_form').html("Name: "+result.usernames+"<br>Email: "+result.email+"<br>Login: "+result.login+"<br>Password: "+result.password);
-    	},
-    	error: function(response) {
-            $('#result_form').html("Error, no data sent");
-    	}
- 	});
-}
