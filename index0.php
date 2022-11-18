@@ -3,6 +3,7 @@
 	if (isset($_SESSION["mess"])) {
 		print_r($_SESSION["mess"]);
 	}
+	
 ?>
 
 <!DOCTYPE html>
@@ -44,7 +45,7 @@
 					<label for="user">
 						Username:
 					</label>
-					<input type="text" name="usernames" id="usernames" required class="form-control" pattern="^\s*([a-zA-Z]{2}|[a-zA-Z]\s[a-zA-Z])\s*$">
+					<input type="text" name="usernames" id="usernames" required class="form-control" pattern="^[a-zA-Z]{2}$">
 					<h5 id="usercheck" style="color: red;">
 						**Enter your name
 					</h5>
@@ -54,7 +55,7 @@
 					<label for="login">
 						Login:
 					</label>
-					<input type="text" name="login" id="login" required class="form-control" pattern=".{6,}">
+					<input type="text" name="login" id="login" required class="form-control" pattern="[^\s]{6,}">
 					<h5 id="logcheck" style="color: red;">
 						**Please enter your login
 					</h5>
@@ -64,18 +65,17 @@
 					<label for="user">
 						Email:
 					</label>
-					<input type="email" name="email" id="email" required class="form-control">
-					<small id="emailvalid" class="form-text
-				text-muted invalid-feedback">
-						Your email must be a valid email
-					</small>
+					<input type="text" name="email" id="email" required class="form-control" pattern="^(([0-9A-Za-z]{1}[\-0-9A-z\.]{1,}[0-9A-Za-z]{1})@([\-A-Za-z]{1,}\.){1,2}[\-A-Za-z]{2,})$">
+					<h5 id="emcheck" style="color: red;">
+						**Email is expected
+					</h5>
 				</div>
 
 				<div class="form-group">
 					<label for="password">
 						Password:
 					</label>
-					<input type="password" name="password" id="password" required class="form-control" pattern="^(?=.*[A-Za-z].*[A-Za-z])(?=.*[0-9]).{6,}$">
+					<input type="password" name="password" id="password" required class="form-control" pattern="^(?=.*[0-9])(?=.*[A-Za-z])[0-9a-zA-Z]{6,}$">
 					<h5 id="passcheck" style="color: red;">
 						**Append password
 					</h5>
@@ -98,6 +98,8 @@
 		</div>
 	</div>
 
+	<div id="for_errors"></div>
+	
 	<p>
 		<?php
 			error_reporting(E_ERROR | E_PARSE); 

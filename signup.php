@@ -49,10 +49,26 @@
 			$returnee=json_decode($json, true);
 			foreach($returnee as $ret)
 			{
-				if(trim($ret["login"]) == trim($this->post["login"]) && trim($ret["email"]) == trim($this->post["email"]))
+				if($ret["login"] == $this->post["login"] || $ret["email"] == $this->post["email"])
 				{
-					echo "This user already exists";
-				} else {
+					$response = [
+						'messages_error' => "A user with this login or email already exists",
+						'status' => false
+					];
+					echo json_encode($response);
+					return false;
+				}
+				elseif($this->post["password"] != $this->post["conpassword"])
+				{
+					$response = [
+						'messages_error' => "Passwords don't match",
+						'status' => false
+					];
+					echo json_encode($response);
+					return false;
+				}
+				else
+				{
 					return $this->writing_to_file();
 				}	
 			}

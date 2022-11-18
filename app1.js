@@ -6,10 +6,7 @@ $(document).ready(function () {
     });
     function validateUsername() {
         let usernameValue = $("#usernames").val();
-        let format = /^\s*([a-zA-Z]{2}|\s{2}|[a-zA-Z]\s[a-zA-Z])\s*$/;
-        // if (usernameValue.length == "") {
-        //     $("#usercheck").show();
-        // } 
+        let format = /^[a-zA-Z]{2}$/;
         if (format.test(usernameValue)==false) {
             $("#usercheck").show();
             $("#usercheck").html("**length of username must 2, only letters");
@@ -25,10 +22,7 @@ $(document).ready(function () {
     });
     function validateLogin() {
         let loginValue = $("#login").val();
-        let format1 = /.{6,}/;
-        // if (loginValue.length == "") {
-        //     $("#logcheck").show();
-        // }
+        let format1 = /[^\s]{6,}/;
         if (format1.test(loginValue)==false) {
             $("#logcheck").show();
             $("#logcheck").html(
@@ -41,18 +35,23 @@ $(document).ready(function () {
     }
     
     // Validate Email
-    const email = document.getElementById("email");
-    email.addEventListener("blur", () => {
-        let regex = /^\s*([_\-\.0-9a-zA-Z]+)@([_\-\.0-9a-zA-Z]+)([a-zA-Z])\s*$/;
-        let s = email.value;
-        if (regex.test(s)) {
-            email.classList.remove("is-invalid");
-            emailError = true;
-        } else {
-            email.classList.add("is-invalid");
-            emailError = false;
-        }
+    $("#emcheck").hide();
+    $("#email").keyup(function () {
+        validateEmail();
     });
+    function validateEmail() {
+        let emailValue = $("#email").val();
+        let regex = /^(([0-9A-Za-z]{1}[\-0-9A-z\.]{1,}[0-9A-Za-z]{1})@([\-A-Za-z]{1,}\.){1,2}[\-A-Za-z]{2,})$/;
+        if (regex.test(emailValue)==false) {
+            $("#emcheck").show();
+            $("#emcheck").html(
+                "**not valid email or a space was added"
+        );
+            $("#emcheck").css("color", "red");
+        } else {
+            $("#emcheck").hide();
+        }
+    }
     
     // Validate Password
     $("#passcheck").hide();
@@ -61,10 +60,7 @@ $(document).ready(function () {
     });
     function validatePassword() {
         let passwordValue = $("#password").val();
-        let regex2 = /^(?=.*[A-Za-z].*[A-Za-z])(?=.*[0-9]).{6,}$/
-        // if (passwordValue.length == "") {
-        //     $("#passcheck").show();
-        // }
+        let regex2 = /^(?=.*[0-9])(?=.*[A-Za-z])[0-9a-zA-Z]{6,}$/
         if (regex2.test(passwordValue)==false) {
             $("#passcheck").show();
             $("#passcheck").html(

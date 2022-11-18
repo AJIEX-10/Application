@@ -18,13 +18,15 @@ document.addEventListener("DOMContentLoaded", () => {
             form.addEventListener("submit", function (e) {
                 e.preventDefault();
                 const formData = new FormData(this);
-                
+
                 ajaxSend(formData)
                     .then((response) => {
-                        console.log(response);
+                        const res = JSON.stringify(response).split("\\");
+                        document.getElementById("for_errors").innerText += res[3];
                         form.reset();
                     })
                     .catch((err) => console.error(err))
+                    
             });
         });
     }
