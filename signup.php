@@ -40,6 +40,13 @@
 					fwrite($content, json_encode(array($this->post)));
 				}
 					fclose($content);
+					$response = [
+						'messages_error' => "Registration was successful",
+						'status' => true
+					];
+					header('Content-Type: application/json; charset=utf-8');
+					echo json_encode($response);
+					return true;
 			}
 		}
 
@@ -55,6 +62,7 @@
 						'messages_error' => "A user with this login or email already exists",
 						'status' => false
 					];
+					header('Content-Type: application/json; charset=utf-8');
 					echo json_encode($response);
 					return false;
 				}
@@ -64,6 +72,7 @@
 						'messages_error' => "Passwords don't match",
 						'status' => false
 					];
+					header('Content-Type: application/json; charset=utf-8');
 					echo json_encode($response);
 					return false;
 				}

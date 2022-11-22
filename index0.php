@@ -3,7 +3,6 @@
 	if (isset($_SESSION["mess"])) {
 		print_r($_SESSION["mess"]);
 	}
-	
 ?>
 
 <!DOCTYPE html>
