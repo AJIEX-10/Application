@@ -4,7 +4,8 @@ $(document).ready(function () {
     $("#usernames").keyup(function () {
         validateUsername();
     });
-    function validateUsername() {
+    function validateUsername() 
+    {
         let usernameValue = $("#usernames").val();
         let format = /^[a-zA-Z]{2}$/;
         if (format.test(usernameValue)==false) {
@@ -20,7 +21,8 @@ $(document).ready(function () {
     $("#login").keyup(function () {
         validateLogin();
     });
-    function validateLogin() {
+    function validateLogin() 
+    {
         let loginValue = $("#login").val();
         let format1 = /[^\s]{6,}/;
         if (format1.test(loginValue)==false) {
@@ -39,7 +41,8 @@ $(document).ready(function () {
     $("#email").keyup(function () {
         validateEmail();
     });
-    function validateEmail() {
+    function validateEmail() 
+    {
         let emailValue = $("#email").val();
         let regex = /^(([0-9A-Za-z]{1}[\-0-9A-z\.]{1,}[0-9A-Za-z]{1})@([\-A-Za-z]{1,}\.){1,2}[\-A-Za-z]{2,})$/;
         if (regex.test(emailValue)==false) {
@@ -58,7 +61,9 @@ $(document).ready(function () {
     $("#password").keyup(function () {
         validatePassword();
     });
-    function validatePassword() {
+
+    function validatePassword()
+    {
         let passwordValue = $("#password").val();
         let regex2 = /^(?=.*[0-9])(?=.*[A-Za-z])[0-9a-zA-Z]{6,}$/
         if (regex2.test(passwordValue)==false) {
@@ -77,7 +82,8 @@ $(document).ready(function () {
     $("#conpassword").keyup(function () {
         validateConfirmPassword();
     });
-    function validateConfirmPassword() {
+    function validateConfirmPassword()
+    {
         let confirmPasswordValue = $("#conpassword").val();
         let passwordValue = $("#password").val();
         if (passwordValue != confirmPasswordValue) {

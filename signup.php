@@ -1,11 +1,11 @@
 <?php
+
 	$password = $_POST["password"];
 	$_POST["password"] = sha1($password)."AbEn3XX900m";
 	$conf_password = $_POST["conpassword"];
 	$_POST["conpassword"] = sha1($conf_password)."AbEn3XX900m";
 
-
-	class Writing_to_file
+	class WritingToFile
 	{
 		private $post;
 		private $filename = "file.json";
@@ -15,18 +15,14 @@
 			$this->post = $post;
 		}
 
-		private function writing_to_file()
+		private function writingToFile()
 		{
 			$content = @fopen('./secret_data/'.$this->filename, 'r+');
-			if ($content == null)
-			{
+			if ($content == null) {
 				$content = fopen('./secret_data/'.$this->filename, 'w+');
-			}
-			if ($content)
-			{
+			} if ($content) {
 				fseek($content, 0, SEEK_END);
-				if (ftell($content) > 0)
-				{
+				if (ftell($content) > 0) {
 					// move back a byte
 					fseek($content, -1, SEEK_END);
 			
@@ -34,9 +30,7 @@
 					fwrite($content, ',', 1);
 
 					fwrite($content, json_encode($this->post) . ']');
-				}
-				else
-				{
+				} else {
 					fwrite($content, json_encode(array($this->post)));
 				}
 					fclose($content);
@@ -50,14 +44,12 @@
 			}
 		}
 
-		private function identity_check()
+		private function identityCheck()
 		{
 			$json=file_get_contents('./secret_data/'.$this->filename);
 			$returnee=json_decode($json, true);
-			foreach($returnee as $ret)
-			{
-				if($ret["login"] == $this->post["login"] || $ret["email"] == $this->post["email"])
-				{
+			foreach($returnee as $ret) {
+				if($ret["login"] == $this->post["login"] || $ret["email"] == $this->post["email"]) {
 					$response = [
 						'messages_error' => "A user with this login or email already exists",
 						'status' => false
@@ -65,9 +57,7 @@
 					header('Content-Type: application/json; charset=utf-8');
 					echo json_encode($response);
 					return false;
-				}
-				elseif($this->post["password"] != $this->post["conpassword"])
-				{
+				} elseif($this->post["password"] != $this->post["conpassword"]) {
 					$response = [
 						'messages_error' => "Passwords don't match",
 						'status' => false
@@ -75,25 +65,21 @@
 					header('Content-Type: application/json; charset=utf-8');
 					echo json_encode($response);
 					return false;
-				}
-				else
-				{
-					return $this->writing_to_file();
+				} else {
+					return $this->writingToFile();
 				}	
 			}
 		}
 
-		function final_record()
+		function finalRecord()
 		{
-			if(file_exists('./secret_data/'.$this->filename) == true)
-			{
-				return $this->identity_check();
+			if(file_exists('./secret_data/'.$this->filename) == true) {
+				return $this->identityCheck();
 			} else {
-				return $this->writing_to_file();
+				return $this->writingToFile();
 			}
 		}
 	}
 	
-	$obj = new Writing_to_file($_POST);
-	$obj->final_record();
-?>
+	$obj = new WritingToFile($_POST);
+	$obj->finalRecord();

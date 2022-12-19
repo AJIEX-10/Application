@@ -1,8 +1,10 @@
 <?php
+
 	session_start();
 	if (isset($_SESSION["mess"])) {
 		print_r($_SESSION["mess"]);
 	}
+
 ?>
 
 <!DOCTYPE html>
@@ -101,15 +103,15 @@
 	
 	<p>
 		<?php
+
 			error_reporting(E_ERROR | E_PARSE); 
 			print_r($_SESSION["message"]);
 			unset($_SESSION["message"]);
+
 		?>
 	</p>
 
-	<script type="text/javascript">
-    $("#mydiv").removeClass("container");
-	</script>
+	<script type="text/javascript">$("#mydiv").removeClass("container");</script>
 
 	<noscript><p>Please enable javascript</p></noscript>
 

@@ -1,4 +1,5 @@
-<?
+<?php
+
 $fname=$_GET['file.json'];
 $fsize=filesize('secret_data/'.$fname);
 $fdown='secret_data/'.$fname;
@@ -21,8 +22,7 @@ if (getenv('HTTP_RANGE')=="") {
     sleep(1);
   }
   fclose($f);
-}
-else {
+} else {
   preg_match ("/bytes=(\d+)-/", getenv('HTTP_RANGE'), $m);
   $csize=$fsize-$m[1];  
   $p1=$fsize-$csize;    
@@ -49,4 +49,3 @@ else {
   }
   fclose($f);
 }
-?>

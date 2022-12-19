@@ -1,11 +1,12 @@
 <?php
+
 	session_start();
 	if (isset($_COOKIE["error"])) {
 		print_r($_COOKIE["error"]);
-	}
-	if (isset($_SESSION["mess"])) {
+	} if (isset($_SESSION["mess"])) {
 		print_r($_SESSION["mess"]);
 	}
+
 ?>
 
 <!DOCTYPE html>
@@ -61,11 +62,10 @@
 		</div>
 	</div>
 
-	<script type="text/javascript">
-    $("#authdiv").removeClass("container");
-	</script>
+	<script type="text/javascript">$("#authdiv").removeClass("container");</script>
 
 	<noscript><p>Please enable javascript</p></noscript>
+
 </body>
 
 </html>
